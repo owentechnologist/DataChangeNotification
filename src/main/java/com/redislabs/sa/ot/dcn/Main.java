@@ -56,10 +56,10 @@ public class Main {
         main.kickOffStreamListenerThread(streamName); //[this uses streams - better version]
         for(int x=0;x<360;x++){
             try{
-                Thread.sleep(4000);
+                Thread.sleep(7000);
             }catch(Throwable t){}
             for(String i : LocalDataStore.getDataStore().keySet()){
-                System.out.println("Main loop checking local datastore: "+i+"\t"+LocalDataStore.getDataStore().get(i));
+                System.out.println("Simulated client Queries Java Service with getValue("+i+" ) -->\t"+LocalDataStore.getDataStore().get(i));
             }
         }
     }
@@ -83,7 +83,7 @@ public class Main {
                         key = streamResult.get(0).getKey();
                         streamEntryList = streamResult.get(0).getValue();
                         value = streamEntryList.get(0).toString();
-                        System.out.println("main.kickOffStreamListenerThread: received... "+key+" "+value);
+                        System.out.println("StreamListenerThread: received... "+key+" "+value);
                         int splitLocation = value.indexOf(" {");
                         LocalDataStore.setValue(value.substring(splitLocation));
                         nextID = new StreamEntryID(value.split(" ")[0]);
