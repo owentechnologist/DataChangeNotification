@@ -28,7 +28,7 @@ s_gear.register(
     'type2:*',
     mode='sync',
     readValue=True
-    #NB: mode='sync' is the only working option AFAIK
+    #NB: mode='sync' makes sure the event isn’t ignored
     #readValue=True shows the value of the key
     #readValue=False shows just the key and the operation
 )
