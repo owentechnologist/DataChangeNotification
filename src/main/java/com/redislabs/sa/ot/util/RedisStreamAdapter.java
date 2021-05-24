@@ -48,7 +48,6 @@ public class RedisStreamAdapter {
                             HashMap<String,String> entry = new HashMap<String,String>();
                             entry.put(key,value);
                             mapProcessor.processMap(entry);
-                            //LocalDataStore.setValue(value.substring(splitLocation));
                             nextID = new StreamEntryID(value.split(" ")[0]);
                         }
                     }catch(Exception e){
