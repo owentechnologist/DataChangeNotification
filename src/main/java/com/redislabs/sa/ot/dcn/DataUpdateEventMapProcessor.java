@@ -12,6 +12,7 @@ public class DataUpdateEventMapProcessor implements MapProcessor {
         String raw = map.get(map.keySet().toArray()[0]);
         System.out.println("DataUpdateEventMapProcessor(): "+raw);
         if(raw.contains(new StringBuffer("\"type\": \"list\","))){
+            //1621852546017-0 {type2:list1={"event": "lpush", "key": "type2:list1", "type": "list", "value": ["sue", "mary", "bob", "mary"]}}
             int splitLocation = raw.indexOf(" {");
             String listName = raw.substring(splitLocation + 2);// no need to keep the leading space or {
             listName = listName.split("=")[0]; // grab the name of the list

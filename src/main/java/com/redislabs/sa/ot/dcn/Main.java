@@ -39,20 +39,16 @@ public class Main {
 
 
     private static final JedisPool redisConnectionPool = JedisConnectionFactory.getInstance().getJedisPool();
-    //static String DATA_UPDATES_STREAM = "X:BEST_MATCHED_CITY_NAMES_BY_SEARCH";
-    static String DATA_UPDATES_STREAM = "X:DATA_UPDATES";
+    static String DATA_UPDATES_STREAM = "X:BEST_MATCHED_CITY_NAMES_BY_SEARCH";
+    //static String DATA_UPDATES_STREAM = "X:DATA_UPDATES";
 
     public static void main(String[] args){
-        String channel  = "LAST_OP";
         if(args.length<1) {
-            System.out.println("Please pass this program the name of the pub/sub channel you wish to subscribe to.\n" +
-                    "  ex: LAST_OP\n" +
-                    "Please also (as your second argument) pass this program the name of the stream you wish to repeatedly listen to \n" +
-                    "  ex: DATA_UPDATES");
-            System.out.println("\tDefaulting to: LAST_OP and "+DATA_UPDATES_STREAM);
+            System.out.println("Please pass this program the name of the stream you wish to repeatedly listen to \n" +
+                    "  ex: X:DATA_UPDATES");
+            System.out.println("\tDefaulting to: "+DATA_UPDATES_STREAM);
         }else{
-            channel = args[0];
-            DATA_UPDATES_STREAM = args[1];
+            DATA_UPDATES_STREAM = args[0];
         }
         Main main = new Main();
         RedisStreamAdapter streamAdapter = new RedisStreamAdapter(DATA_UPDATES_STREAM,redisConnectionPool);

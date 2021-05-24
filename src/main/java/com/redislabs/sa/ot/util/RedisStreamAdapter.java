@@ -35,11 +35,15 @@ public class RedisStreamAdapter {
                             streamQuery = new AbstractMap.SimpleImmutableEntry<>(
                                     streamName, nextID);
                             List<Map.Entry<String, List<StreamEntry>>> streamResult =
-                                    streamListener.xread(1,Long.MAX_VALUE,streamQuery);// <--  changed block from Long.MAX_VALUE
+                                    streamListener.xread(1,Long.MAX_VALUE,streamQuery);// <--  has to be Long.MAX_VALUE to work
                             key = streamResult.get(0).getKey(); // name of Stream
-                            streamEntryList = streamResult.get(0).getValue();
+                            streamEntryList = streamResult.get(0).getValue(); // we assume simple use of stream with a single update
                             value = streamEntryList.get(0).toString();// entry written to stream
+                            // the following formats are copacetic:
                             //1621843705891-0 {type2:phone={"event": "set", "key": "type2:phone", "type": "string", "value": "312-7777"}}
+                            //1621847672478-0 {originalCityName=cokwitlum, requestID=PM_UID76863937290053, bestMatch=Coquitlam}
+                            //1621847941565-0 {type2:hash1={"event": "hset", "key": "type2:hash1", "type": "hash", "value": {"name": "bob", "phone": "212-555-1213"}}}
+                            //1621852546017-0 {type2:list1={"event": "lpush", "key": "type2:list1", "type": "list", "value": ["sue", "mary", "bob", "mary"]}}
                             System.out.println("StreamListenerThread: received... "+key+" "+value);
                             HashMap<String,String> entry = new HashMap<String,String>();
                             entry.put(key,value);
